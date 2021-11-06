@@ -1,5 +1,5 @@
 import '@emotion/react';
-import { PaletteType, SpacingIndex, ThemeType } from './types';
+import { Font, PaletteType, SpacingIndex, ThemeType } from './types';
 
 const direction = 'rtl';
 // export interface ThemeType {
@@ -32,11 +32,18 @@ const spacing: (...values: SpacingIndex[]) => string = (...values) => (
   values.map((v) => `${spacings[v]}rem`).join(' ')
 );
 
+const fontSizes = [0.6, 0.85, 1, 1.33, 2.2, 3.8];
+const font: Font = {
+  sizes: fontSizes,
+  size: (v = 1) => `${fontSizes[v]}rem`,
+};
+
 const theme: ThemeType = {
   direction,
   palette,
   spacing,
   spacings,
+  font,
 };
 
 export default theme;
