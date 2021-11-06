@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { ReportsCall } from "../api";
-import Text from "./utils/Text";
+import ReportItem from "./reportIten";
+import TextComponent from "./utils/Text";
 
 export type ReportItemType = {
   id: 1,
@@ -17,18 +18,21 @@ const ContentWrapper = styled.div(({ theme }) => ({
 }));
 
 export default function Content(){
-  const [reports,setReports] = useState<ReportItemType[]>();
+  const [reports,setReports] = useState<ReportItemType[]>([]);
 
   useEffect(() => {
     ReportsCall({_page: 1,_limit: 10})
-      .then((response: any) => console.log('response: ', response))
-      .catch((error: any) => console.log('error: ', error));
+      .then(({ data }: any) => setReports([...reports, data]));
   }, []);  
 
   return (
     <ContentWrapper>
-      <Text color="gray2">گردش حساب</Text>
-
+      <TextComponent color="gray2">گردش حساب</TextComponent>
+      {
+        reports?.map(( report, index ) => (
+          <ReportItem key={index} {...report} />
+        ))
+      }
     </ContentWrapper>
   );
 };
