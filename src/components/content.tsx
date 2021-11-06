@@ -13,8 +13,8 @@ export type ReportItemType = {
   reference_number: string,
 };
 
-const ContentWrapper = styled.div(({ theme }) => ({
-  padding: theme.spacing(0, 2),
+const Title = styled(TextComponent)(({ theme }) => ({
+  padding: theme.spacing(0 , 2),
 }));
 
 export default function Content(){
@@ -22,17 +22,17 @@ export default function Content(){
 
   useEffect(() => {
     ReportsCall({_page: 1,_limit: 10})
-      .then(({ data }: any) => setReports([...reports, data]));
+      .then(({ data }: any) => setReports([...reports, ...data]));
   }, []);  
 
   return (
-    <ContentWrapper>
-      <TextComponent color="gray2">گردش حساب</TextComponent>
+    <>
+      <Title color="gray2">گردش حساب</Title>
       {
         reports?.map(( report, index ) => (
           <ReportItem key={index} {...report} />
         ))
       }
-    </ContentWrapper>
+    </>
   );
 };
