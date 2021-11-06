@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { ReportsCall } from "../api";
-import ReportItem from "./reportIten";
+import ReportItem from "./reportItem";
 import TextComponent from "./utils/Text";
 
 export type ReportItemType = {
