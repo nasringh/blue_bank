@@ -4,6 +4,9 @@ import { BASE_URL } from '../configs';
 const _instance = axios.create({
   baseURL: BASE_URL,
   timeout: 10000,
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+  }
 });
 
 type CallType = {

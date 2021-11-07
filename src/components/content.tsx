@@ -40,6 +40,8 @@ export default function Content(){
     price: 5000000,
     data: initialSelectedReport
   });
+  const [page, setPage] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleClickReport = (item: ReportItemType) => {
     setModalState({
@@ -49,12 +51,30 @@ export default function Content(){
     });
   };
 
+
+  const callReports = () => {
+    ReportsCall({_page: page,_limit: 10})
+      .then(({ data }: any) => {
+        setLoading(false);
+        setReports([...reports, ...data]);
+      });
+  };
+
   useEffect(() => {
-    ReportsCall({_page: 1,_limit: 10})
-      .then(({ data }: any) => setReports([...reports, ...data]));
+    window.addEventListener('scroll', function(){
+      if((window.innerHeight + window.scrollY) >= this.document.body.offsetHeight){
+        if(page <= 4){
+          setPage(prev => prev + 1);
+          setLoading(true);
+        }
+      }
+    });
+    
   }, []);
 
-  console.log('modal: ', modalState);
+  useEffect(() => {
+    callReports();
+  }, [page]);
 
   return (
     <>
@@ -67,6 +87,7 @@ export default function Content(){
              />
         ))
       }
+      { loading && <TextComponent align="center" color="navyBlue">Loading ...</TextComponent> }
     </>
   );
 };

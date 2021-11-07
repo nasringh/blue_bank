@@ -7,6 +7,9 @@ import TextComponent from "./utils/Text";
 const Row = styled(Flex)(({ theme }) => ({
   padding: theme.spacing(1, 2),
   borderBottom: `solid 1px ${theme.palette['gray3']}`,
+  '&:last-child': {
+    borderBottom: 'none',
+  },
 }));
 
 type ReportItemComponent = ReportItemType & { 

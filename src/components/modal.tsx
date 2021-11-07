@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
-import { any } from 'prop-types';
 import { useEffect, useRef } from 'react';
-import { ModalStateType, ReportItemType } from './content';
+import { ModalStateType } from './content';
 import Flex from './utils/Flex';
 import TextComponent from './utils/Text';
 
@@ -44,7 +43,6 @@ const ModalWrapper = styled(Flex)(({ theme }) => ({
     zIndex: 100,
     opacity: 1,
     '& .modal': {
-      // bottom: '50%',
       transform: 'translateY(0)',
     }
   },
@@ -53,6 +51,9 @@ const ModalWrapper = styled(Flex)(({ theme }) => ({
 const FlexWrapper = styled(Flex)(({ theme }) => ({
   justifyContent: 'space-between',
   borderBottom: `solid 1px ${theme.palette['gray3']}`,
+  '&:last-child': {
+    borderBottom: 'none',
+  },
 }));
 
 type HandleClose = { handleClose: () => any };
@@ -72,7 +73,7 @@ export default function Modal({ handleClose, ...modalState }: HandleClose & Moda
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [handleClose]);
 
   return (
     <ModalWrapper className={open ? 'show' : ''}>
