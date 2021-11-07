@@ -28,13 +28,13 @@ export default function ReportItem({ handleClick, ...report }: ReportItemCompone
           name={isWithdrawal ? 'icon-arrow-down-right' : 'icon-arrow-up-left'}
           color={color}
          />
-         <div>
+         <div className="mr-2">
            <TextComponent font={1}>{isWithdrawal ? 'برداشت' : 'واریز'}</TextComponent>
            <TextComponent color="gray2" font={0}>{itemDate}</TextComponent>
          </div>
       </Flex>
       <Flex align="center">
-        <TextComponent color={isWithdrawal ? 'gray1' : 'success'} font={1}>
+        <TextComponent color={isWithdrawal ? 'gray1' : 'success'} font={1} className="ml-2">
           ۵,۰۰۰,۰۰۰{isWithdrawal ? '-' : '+'} ریال
         </TextComponent>
         <Icon name="icon-chevron-left-solid" color="gray2" size={1} />
