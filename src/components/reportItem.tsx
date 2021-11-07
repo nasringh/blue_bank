@@ -9,12 +9,17 @@ const Row = styled(Flex)(({ theme }) => ({
   borderBottom: `solid 1px ${theme.palette['gray3']}`,
 }));
 
-export default function ReportItem({ date, isWithdrawal }: ReportItemType){
+type ReportItemComponent = ReportItemType & { 
+  handleClick: (item: ReportItemType) => any,
+};
+
+export default function ReportItem({ handleClick, ...report }: ReportItemComponent){
+  const { date, isWithdrawal } = report;
   const color = isWithdrawal ? 'error' : 'success';
   const itemDate = new Date(date).toLocaleDateString('fa-IR');
   
   return (
-    <Row justify="space-between" align="center">
+    <Row justify="space-between" align="center" onClick={() => handleClick(report)}>
       <Flex align="center">
         <Icon
           name={isWithdrawal ? 'icon-arrow-down-right' : 'icon-arrow-up-left'}
