@@ -42,6 +42,7 @@ export default function Content(){
   });
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
+  const limitedPage = 5;
 
   const handleClickReport = (item: ReportItemType) => {
     setModalState({
@@ -63,17 +64,26 @@ export default function Content(){
   useEffect(() => {
     window.addEventListener('scroll', function(){
       if((window.innerHeight + window.scrollY) >= this.document.body.offsetHeight){
-        if(page <= 4){
+        if(page < limitedPage){
           setPage(prev => prev + 1);
           setLoading(true);
         }
       }
     });
-    
+    return () => {
+      if(page > limitedPage){
+        window.removeEventListener('scroll', () => console.log('removed'));
+      }
+    }
   }, []);
 
   useEffect(() => {
-    callReports();
+    if(page <= limitedPage){
+      callReports();
+    }
+    else{
+      setLoading(false);
+    }
   }, [page]);
 
   return (
